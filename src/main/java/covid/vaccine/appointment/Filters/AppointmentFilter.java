@@ -1,5 +1,6 @@
 package covid.vaccine.appointment.Filters;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -10,6 +11,7 @@ import java.time.LocalTime;
  * paciente.
  */
 @Data
+@AllArgsConstructor
 public class AppointmentFilter {
 
     private Integer id;

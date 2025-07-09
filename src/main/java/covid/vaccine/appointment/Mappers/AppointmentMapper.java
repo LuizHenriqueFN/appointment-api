@@ -2,9 +2,12 @@ package covid.vaccine.appointment.Mappers;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 import covid.vaccine.appointment.DTOs.AppointmentDTO;
+import covid.vaccine.appointment.DTOs.PatientDTO;
 import covid.vaccine.appointment.Entities.Appointment;
+import covid.vaccine.appointment.Entities.Patient;
 
 import java.util.List;
 
@@ -21,7 +24,7 @@ public interface AppointmentMapper {
      * @param appointment A entidade a ser convertida.
      * @return O DTO correspondente.
      */
-    @Mapping(target = "patient", source = "patient")
+    @Mapping(target = "patient", source = "patient", qualifiedByName = "patientToDTOWithoutAppointments")
     AppointmentDTO toDTO(Appointment appointment);
 
     /**
@@ -32,4 +35,8 @@ public interface AppointmentMapper {
      * @return A lista de DTOs.
      */
     List<AppointmentDTO> toDTOList(List<Appointment> appointments);
+
+    @Named("patientToDTOWithoutAppointments")
+    @Mapping(target = "appointments", ignore = true)
+    PatientDTO patientToPatientDTO(Patient patient);
 }

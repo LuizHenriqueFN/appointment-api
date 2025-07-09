@@ -21,6 +21,18 @@ public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
+    @GetMapping
+    public ResponseEntity<List<AppointmentDTO>> listAllAppointments() {
+        List<AppointmentDTO> appointments = appointmentService.listAllAppointments();
+        return ResponseEntity.ok(appointments);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AppointmentDTO> getAppointmentById(@PathVariable Integer id) {
+        AppointmentDTO appointment = appointmentService.getAppointmentById(id);
+        return ResponseEntity.ok(appointment);
+    }
+
     @PostMapping
     public ResponseEntity<AppointmentDTO> insertAppointment(
             @Valid @RequestBody AppointmentRegistrationModel newAppointment) {

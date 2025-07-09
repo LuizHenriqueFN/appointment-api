@@ -1,6 +1,8 @@
 package covid.vaccine.appointment.DTOs;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class AppointmentDTO {
 
     private int id;
@@ -16,7 +19,6 @@ public class AppointmentDTO {
     private LocalTime appointmentTime;
     private String statusDescription;
 
-    @JsonBackReference
     private PatientDTO patient;
 
     // Construtor específico para a projeção do Spring Data JPA

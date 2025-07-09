@@ -34,11 +34,28 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional(readOnly = true)
+    public List<AppointmentDTO> listAllAppointments() {
+        log.info("Buscando todos os agendamentos.");
+        List<AppointmentDTO> appointments = appointmentRepository.findAllAppointmentsWithPatientDTO();
+        return appointments;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<AppointmentDTO> listAppointments(AppointmentFilter filter) {
         log.info("Buscando agendamentos com o filtro: {}", filter);
         Specification<Appointment> spec = appointmentSpecifications.createSpecification(filter);
         List<Appointment> appointments = appointmentRepository.findAll(spec);
         return appointmentMapper.toDTOList(appointments);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public AppointmentDTO getAppointmentById(Integer id) {
+        log.info("Buscando agendamento com o ID: {}", id);
+        return appointmentRepository.findByIdWithPatient(id)
+                .map(appointmentMapper::toDTO)
+                .orElseThrow(() -> new EntityNotFoundException("Agendamento não encontrado com o ID: " + id));
     }
 
     @Override

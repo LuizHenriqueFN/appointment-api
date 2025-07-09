@@ -12,6 +12,10 @@ import covid.vaccine.appointment.Models.AppointmentRegistrationModel;
  * Define o contrato para as operações de CRUD e lógicas de negócio específicas.
  */
 public interface AppointmentService {
+    List<AppointmentDTO> listAllAppointments();
+
+    AppointmentDTO getAppointmentById(Integer id);
+
     List<AppointmentDTO> listAppointments(AppointmentFilter appointmentFilter);
 
     AppointmentDTO insertAppointment(AppointmentRegistrationModel newAppointment);
